@@ -18,6 +18,11 @@ export class UsersController {
         return users;
     }
 
+    @Get(':id')
+    getById(@Param('id') id: string) {
+        return this.usersService.getById(id);
+    }
+
     @Delete(':id')
     async delete(@Param('id') userId: string) {
         await this.usersService.delete(userId);
