@@ -34,6 +34,10 @@
 $ npm install
 ```
 
+## .env file
+
+```MONGO_URL=your_url```
+
 ## Running the app
 
 ```bash

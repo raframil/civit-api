@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './user.model';
 import { Model } from 'mongoose';
@@ -23,6 +23,13 @@ export class UsersService {
     async list() {
         const users = await this.userModel.find().exec();
         return users;
+    }
+
+    async delete(id: string) {
+        const result = await this.userModel.deleteOne({ _id: id }).exec();
+        if (result.n === 0) {
+            throw new NotFoundException('Could not find user.');
+        }
     }
 
 }
