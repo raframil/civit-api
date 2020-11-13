@@ -17,12 +17,16 @@ export class UsersService {
     }
 
     async getById(id: string) {
-        const user = await this.findUser(id);
+        const user = await this.findUserById(id);
         return user;
     }
 
     async getByEmail(email: string) {
-        return await this.userModel.findOne({ email }).exec();
+        const user = await this.userModel.findOne({ email }).exec();
+        if (!user) {
+            throw new NotFoundException('Could not find user');
+        }
+        return user;
     }
 
     async create(user: CreateUserDto) {
@@ -55,7 +59,7 @@ export class UsersService {
     }
 
     async updateStatus(id: string, status: boolean) {
-        const user = await this.findUser(id);
+        const user = await this.findUserById(id);
         console.log(status)
         const res = await user.updateOne({ isEnabled: status });
         return res;
@@ -68,7 +72,7 @@ export class UsersService {
         }
     }
 
-    private async findUser(id: string): Promise<User> {
+    private async findUserById(id: string): Promise<User> {
         let user;
         try {
             user = await this.userModel.findById(id).exec();
