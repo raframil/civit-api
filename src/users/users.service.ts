@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './user.model';
 import { Model } from 'mongoose';
@@ -21,7 +21,15 @@ export class UsersService {
         return user;
     }
 
+    async getByEmail(email: string) {
+        return await this.userModel.findOne({ email }).exec();
+    }
+
     async create(user: CreateUserDto) {
+        const checkUser = await this.userModel.findOne({ email: user.email }).exec();
+        if (checkUser) {
+            throw new ConflictException('User already registered')
+        }
         const newUser = new this.userModel({
             name: user.name,
             email: user.email,
@@ -56,7 +64,7 @@ export class UsersService {
     async delete(id: string) {
         const result = await this.userModel.deleteOne({ _id: id }).exec();
         if (result.n === 0) {
-            throw new NotFoundException('Could not find user.');
+            throw new NotFoundException('Could not find user');
         }
     }
 
@@ -65,10 +73,10 @@ export class UsersService {
         try {
             user = await this.userModel.findById(id).exec();
         } catch (error) {
-            throw new NotFoundException('Could not find user.');
+            throw new NotFoundException('Could not find user');
         }
         if (!user) {
-            throw new NotFoundException('Could not find user.');
+            throw new NotFoundException('Could not find user');
         }
         return user;
     }

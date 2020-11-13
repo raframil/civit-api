@@ -5,7 +5,7 @@ export class AuthUserDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    cpf: string;
+    email: string;
 
     @ApiProperty()
     @IsNotEmpty()

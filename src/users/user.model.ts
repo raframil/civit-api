@@ -5,7 +5,7 @@ export const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   cpf: { type: String, required: true },
-  password: { type: Number, required: true },
+  password: { type: String, required: true },
   role: { type: String, required: false },
   isEnabled: { type: Boolean, required: false },
 });
@@ -16,7 +16,7 @@ export interface User extends mongoose.Document {
   email: string;
   phone: string;
   cpf: string;
-  password: number;
+  password: string;
   role: string;
   isEnabled: boolean;
 }
