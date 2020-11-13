@@ -23,11 +23,34 @@ export class UsersService {
 
     async create(user: CreateUserDto) {
         const newUser = new this.userModel({
+            name: user.name,
             email: user.email,
+            phone: user.phone,
+            cpf: user.cpf,
             password: user.password
         });
         const result = await newUser.save();
         return result;
+    }
+
+    async createAdmin(user: CreateUserDto) {
+        const newUser = new this.userModel({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            cpf: user.cpf,
+            password: user.password,
+            role: 'admin'
+        });
+        const result = await newUser.save();
+        return result;
+    }
+
+    async updateStatus(id: string, status: boolean) {
+        const user = await this.findUser(id);
+        console.log(status)
+        const res = await user.updateOne({ isEnabled: status });
+        return res;
     }
 
     async delete(id: string) {
