@@ -9,14 +9,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('API Civit')
+    .setDescription('Esta é a documentação do servidor da aplicação do aplicativo Civit')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('civit')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000 || process.env.PORT);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
