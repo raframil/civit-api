@@ -1,39 +1,55 @@
-import { IsOptional, IsString, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsNumber, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+export enum IncidentStatus {
+  AGUARDANDO = 'AGUARDANDO',
+  PROCESSANDO = 'PROCESSANDO',
+  FINALIZADO = 'FINALIZADO'
+}
+
+export class UpdateIncidentDto {
+  @ApiProperty({ description: 'Status da ocorrência', enum: ['AGUARDANDO', 'PROCESSANDO', 'FINALIZADO']})
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(IncidentStatus)
+  status: string;
+}
+
 export class CreateIncidentDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Titulo da ocorrência', example: "Estacionamento em local proibido" })
   @IsNotEmpty()
   @IsString()
   title: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Data e hora da ocorrência (YYYY-MM-DD HH:mm:ss)', example: "2020-11-15 15:19:32" })
   @IsNotEmpty()
   date: String;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Latitude', type: Number, example: 18.109581 })
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   latitude: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Longitude', type: Number, example: -77.297508 })
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   longitude: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Categoria da ocorrência', example: "Infração de trânsito" })
   @IsNotEmpty()
   @IsString()
   category: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Descrição da ocorrência', example: "Estacionou o carro na faixa amarela. Placa: XYZ-3245" })
   @IsNotEmpty()
   @IsString()
   description: string;
 
+  @ApiProperty({ description: 'Array de imagens em Base64', type: Array, example: ['12938712783', '812123981293812'] })
   @IsOptional()
   @IsString()
-  image: string;
-  
-  protocol: string;
+  images: string;
+
+  status?: string = 'AGUARDANDO';
 }
+
