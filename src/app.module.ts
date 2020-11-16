@@ -4,13 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { IncidentModule } from './incident/incident.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URL),
     AuthModule, 
-    UsersModule, IncidentModule],
+    UsersModule, IncidentModule, CategoryModule],
   controllers: [],
   providers: [],
 })
