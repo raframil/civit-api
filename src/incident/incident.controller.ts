@@ -29,16 +29,15 @@ export class IncidentController {
 
     @Put(':id')
     async updateStatus(
-        @Param('id') id: string, 
+        @Param('id') id: string,
         @Body() updateIncidentDto: UpdateIncidentDto
     ) {
         const updatedIncident = await this.incidentService.updateStatus(id, updateIncidentDto);
         return updatedIncident;
-    } 
+    }
 
     @Delete(':id')
     async delete(@Param('id') id: string) {
-        console.log(id)
         await this.incidentService.delete(id);
         return null;
     }
