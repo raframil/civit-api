@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Delete, Put } from '@nestjs/common/decorators/http/request-mapping.decorator';
 import { Param, Query } from '@nestjs/common/decorators/http/route-params.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateIncidentDto, UpdateIncidentDto } from './incident.dto';
 import { IncidentService } from './incident.service';
 
@@ -9,7 +9,8 @@ import { IncidentService } from './incident.service';
 @Controller('incidents')
 export class IncidentController {
     constructor(private readonly incidentService: IncidentService) { }
-
+    
+    @ApiQuery({ name: 'category' })
     @Get()
     async list(@Query() queryParams) {
         const incidents = await this.incidentService.list(queryParams);

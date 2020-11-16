@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 export const IncidentSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: String, required: false, default: Date.now() },
     latitude: { type: Number, required: true },
     longitude:  { type: Number, required: true },
     category: { type: String, required: true },
