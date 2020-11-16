@@ -12,8 +12,8 @@ export class IncidentService {
         @InjectModel('Incident') private readonly incidentModel: Model<Incident>,
     ) { }
 
-    async list(): Promise<Incident[]> {
-        const incidents = await this.incidentModel.find().exec();
+    async list(queryParam?: any): Promise<Incident[]> {
+        const incidents = await this.incidentModel.find(queryParam).exec();
         return incidents;
     }
 
