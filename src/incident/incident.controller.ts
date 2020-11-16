@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Delete, Put } from '@nestjs/common/decorators/http/request-mapping.decorator';
-import { Param } from '@nestjs/common/decorators/http/route-params.decorator';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { Param, Query } from '@nestjs/common/decorators/http/route-params.decorator';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateIncidentDto, UpdateIncidentDto } from './incident.dto';
 import { IncidentService } from './incident.service';
 
@@ -11,8 +11,8 @@ export class IncidentController {
     constructor(private readonly incidentService: IncidentService) { }
 
     @Get()
-    async list() {
-        const incidents = await this.incidentService.list();
+    async list(@Query() queryParams) {
+        const incidents = await this.incidentService.list(queryParams);
         return incidents;
     }
 
