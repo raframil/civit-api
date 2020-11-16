@@ -26,7 +26,7 @@ export class CategoryController {
     }
 
     @Put(':id')
-    async updateStatus(
+    async update(
         @Param('id') id: string,
         @Body() category: CreateCategoryDto
     ) {
