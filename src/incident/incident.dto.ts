@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsNotEmpty, IsNumber, IsEnum } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsNumber, IsEnum, IsArray } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum IncidentStatus {
@@ -47,7 +47,7 @@ export class CreateIncidentDto {
 
   @ApiProperty({ description: 'Array de imagens em Base64', type: Array, example: ['12938712783', '812123981293812'] })
   @IsOptional()
-  @IsString()
+  @IsArray()
   images: string;
 
   status?: string = 'AGUARDANDO';
