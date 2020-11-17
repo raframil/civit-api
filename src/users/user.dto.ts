@@ -26,7 +26,7 @@ export class CreateUserDto {
   password: string;
 
   @IsOptional()
-  role = 'user';
+  role: string = 'user';
 
   @IsOptional()
   isEnabled = true;

@@ -6,7 +6,7 @@ export const UserSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   cpf: { type: String, required: true },
   password: { type: String, required: true },
-  role: { type: String, required: false },
+  role: { type: String, required: true },
   isEnabled: { type: Boolean, required: false },
 });
 

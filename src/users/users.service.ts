@@ -34,26 +34,13 @@ export class UsersService {
         if (checkUser) {
             throw new ConflictException('User already registered')
         }
-        const newUser = new this.userModel({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            cpf: user.cpf,
-            password: user.password
-        });
+        const newUser = new this.userModel(user);
         const result = await newUser.save();
         return result;
     }
 
     async createAdmin(user: CreateUserDto) {
-        const newUser = new this.userModel({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            cpf: user.cpf,
-            password: user.password,
-            role: 'admin'
-        });
+        const newUser = new this.userModel(user);
         const result = await newUser.save();
         return result;
     }
