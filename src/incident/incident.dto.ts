@@ -1,5 +1,5 @@
 import { IsOptional, IsString, IsNotEmpty, IsNumber, IsEnum, IsArray } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 
 export enum IncidentStatus {
   AGUARDANDO = 'AGUARDANDO',
@@ -8,7 +8,7 @@ export enum IncidentStatus {
 }
 
 export class UpdateIncidentDto {
-  @ApiProperty({ description: 'Status da ocorrência', enum: ['AGUARDANDO', 'PROCESSANDO', 'FINALIZADO']})
+  @ApiProperty({ description: 'Status da ocorrência', enum: ['AGUARDANDO', 'PROCESSANDO', 'FINALIZADO'] })
   @IsNotEmpty()
   @IsString()
   @IsEnum(IncidentStatus)
@@ -49,6 +49,11 @@ export class CreateIncidentDto {
   @IsOptional()
   @IsArray()
   images: string;
+
+  @ApiProperty({ description: 'id do usuário que enviou a solicitação', example: '5fadcfbf5a05ea1d38409626' })
+  @IsOptional()
+  @IsString()
+  userId: string;
 
   status?: string = 'AGUARDANDO';
 }
