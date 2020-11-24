@@ -17,6 +17,12 @@ export class IncidentController {
         return incidents;
     }
 
+    @Get('/all')
+    async incidentsByCategory() {
+        const incidents = await this.incidentService.listAll();
+        return incidents;
+    }
+
     @Get(':id')
     async getById(@Param('id') id: string) {
         return this.incidentService.getById(id);
