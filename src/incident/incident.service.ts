@@ -17,6 +17,22 @@ export class IncidentService {
         return incidents;
     }
 
+    async listAll(): Promise<Incident[]> {
+        const incidents = await this.incidentModel.aggregate([
+            {
+                "$group": {
+                    "_id": {
+                        "category": "$category",
+                    },
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            },
+        ])
+        return incidents;
+    }
+
     async create(incident: CreateIncidentDto): Promise<Incident> {
         const newIncident = new this.incidentModel(incident);
         const result = await newIncident.save();
@@ -52,5 +68,5 @@ export class IncidentService {
             throw new NotFoundException('Could not find incident');
         }
         return incident;
-    } 
+    }
 }
