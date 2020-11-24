@@ -45,7 +45,7 @@ export class CreateIncidentDto {
   @IsString()
   description: string;
 
-  @ApiProperty({ description: 'Array de imagens em Base64', type: Object, example: {  "photos": ['12938712783', '812123981293812'] }})
+  @ApiProperty({ description: 'Array de imagens em Base64', type: Object, example: { "images": { "image1": "asjdnasjnd", "image2": "askdmsakd" } }})
   @IsOptional()
   @IsObject()
   images: string;
